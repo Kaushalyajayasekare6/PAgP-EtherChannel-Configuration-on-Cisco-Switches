@@ -1,0 +1,36 @@
+!
+! VLAN Configuration
+!
+vlan 10
+ name AA
+ exit
+vlan 20
+ name BB
+ exit
+!
+! Assign VLANs to Access Ports
+!
+interface range FastEthernet0/3-4
+ switchport mode access
+ switchport access vlan 10
+ exit
+
+interface range FastEthernet0/5-6
+ switchport mode access
+ switchport access vlan 20
+ exit
+!
+! Configure PAgP EtherChannel on Trunk Ports
+!
+interface range FastEthernet0/1-2
+ channel-group 1 mode desirable
+ switchport mode trunk
+ exit
+!
+! Verify Configuration
+!
+do show etherchannel summary
+!
+! Save Configuration
+!
+do write memory
